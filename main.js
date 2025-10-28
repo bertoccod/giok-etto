@@ -50,8 +50,8 @@ let SuperTime=0; //TEMPO IN FASTFORWARD
 
 //GESTIONE PUNTI
 let punti=Number(localStorage.getItem("punti"));
-punti=12200;
-localStorage.setItem("punti",6200);
+//punti=12200;
+//localStorage.setItem("punti",6200);
 if (punti==null){punti=0;} //SE NON ESISTONO I PUNTI PARTI DA 0
 let ptLabel = document.getElementById("punti"); //LABEL PER IL SEGNAPUNTI
 ptLabel.textContent="PUNTI "+punti;
