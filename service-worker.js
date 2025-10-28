@@ -1,7 +1,14 @@
 self.addEventListener('install', event => {
-  console.log('Service Worker installato');
+  // Installazione immediata senza cache
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  // Attiva subito il nuovo SW
+  clients.claim();
 });
 
 self.addEventListener('fetch', event => {
-  // Puoi aggiungere caching qui se vuoi
+  // Passa tutto direttamente alla rete
+  return;
 });
