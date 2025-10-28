@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <title>Giok-Etto</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <div id="wrapper">
+    <div id="gioco">
+      <div id="superiore">
+        <div id="controlli">
+          <label id="punti">PUNTI 0</label>
+          <div id="logo">
+            <img src="assets/logo.png" alt="Logo Gioco">
+          </div>
+
+          <div id="destra">
+            <input id="levelNumber" min="1" max="100" value="1" type="number">
+            <button id="play">PLAY</button>
+          </div>
+          <button id="settingsIcon">
+              <img src="assets/_settings.png" alt="Impostazioni" />
+          </button>
+        </div>
+
+        <div id="canvasWrapper">
+          <img id="frame" src="assets/frame.png">
+          <canvas id="gameCanvas" width="800" height="400"></canvas>
+          <span id="message" style="visibility: hidden;"></span>
+        </div>
+        <div id="settingsPopup">
+          <div id="popupContent"></div>
+        </div>
+
+      </div>
+
+
+
+      <div id="skinBox">
+        <h3>Skin</h3>
+        <div class="skinCard">
+          <input type="radio" name="skin" id="skin0" checked>
+          <label for="skin0"><img src="assets/players/player_etto.png" alt="Etto"></label>
+        </div>
+        <div class="skinCard">
+          <input type="radio" name="skin" id="skin1" disabled>
+          <label for="skin1"><img src="assets/players/player_potter.png" alt="Potter"></label>
+          <label>3000 PUNTI</label>
+        </div>
+        <div class="skinCard">
+          <input type="radio" name="skin" id="skin2" disabled>
+          <label for="skin2"><img src="assets/players/player_albert.png" alt="Einstein"></label>
+          <label>6000 PUNTI</label>
+        </div>
+        <div class="skinCard">
+          <input type="radio" name="skin" id="skin3" disabled>
+          <label for="skin3"><img src="assets/players/player_homer.png" alt="Homer"></label>
+          <label>9000 PUNTI</label>
+        </div>
+        <div class="skinCard">
+          <input type="radio" name="skin" id="skin4" disabled>
+          <label for="skin4"><img src="assets/players/player_mine.png" alt="Minecraft"></label>
+          <label>12000 PUNTI</label>
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>

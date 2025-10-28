@@ -1,0 +1,366 @@
+@font-face {
+  font-family: 'Comebreak';
+  src: url('assets/fonts/COMEBREAK.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /*background-color: black;*/
+ background:
+    url('assets/bg_page.png') repeat,
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 4px),
+    linear-gradient(to bottom right, #ffcc00, #ff6600, #cc0000);
+  background-size: auto, cover;
+}
+
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#gioco {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+#controlli {
+  width: 950px; /* stessa larghezza del canvasWrapper */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#logo img {
+  height: 80px;
+  display: block;
+}
+
+
+#punti {
+  font-family: 'Comebreak', sans-serif;
+  font-size: 1.4em;
+  padding: 6px 16px;
+  border: 2px solid #660000;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #ffcc66, #ff9933);
+  color: #000;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.6);
+}
+
+
+
+#destra {
+  display: flex;
+  gap: 10px;
+}
+
+#levelNumber {
+  font-family: 'Comebreak', sans-serif;
+  font-size: 1.2em;
+  width: 60px;
+  padding: 5px 10px;
+  border: 2px solid #660000;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #ffcc66, #ff9933);
+  color: #000;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.6);
+  text-align: center;
+  outline: none;
+}
+
+#levelNumber:focus {
+  border-color: #cc0000;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+#play {
+  font-family: 'Comebreak', sans-serif;
+  font-size: 1.2em;
+  padding: 6px 16px;
+  border: 2px solid #660000;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #ff6600, #cc0000);
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.6);
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+#play:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+
+#canvasWrapper {
+  position: relative;
+  width: 950px;
+  height: 558px;
+  margin: 5px auto;
+}
+
+#frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 950px;
+  height: 558px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#gameCanvas {
+  position: absolute;
+  top: 79px;
+  left: 75px;
+  width: 800px;
+  height: 400px;
+  z-index: 1;
+}
+
+#skinBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 558px;
+  width: 160px;
+  margin-left: 20px;
+
+  font-family: 'Comebreak', sans-serif;
+  border: 2px solid #660000;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #ffcc66, #ff9933);
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.6);
+  padding: 10px;
+  color: #000;
+}
+
+#skinBox h3 {
+  margin: 0;
+  font-size: 1.4em;
+  color: #000;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+.skinCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+}
+
+.skinCard img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border: 2px solid #660000;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(255, 102, 0, 0.4);
+}
+
+.skinCard input[type="radio"] {
+  accent-color: #cc0000;
+  transform: scale(1.2);
+}
+
+
+
+#message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+}
+#settingsIcon {
+  display: none;
+}
+#livello{
+display: none;
+}
+
+
+
+@media (max-width: 768px) and (orientation: landscape) {
+  #controlli {
+    display: none;
+  }
+
+  #canvasWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #frame {
+    display: none;
+  }
+
+  #gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #punti {
+    position: absolute;
+    top: 3vw;
+    left: 3vw;
+    z-index: 100;
+    display: block;
+  }
+  #levelNumber {
+    position: absolute;
+    top: 3vw;
+    left: 45vw;
+    z-index: 100;
+    display: block;
+  }
+  #play{
+    position: absolute;
+    top: 3vw;
+    left: 60vw;
+    z-index: 100;
+    display: block;
+  }
+  #livello {
+    font-family: 'Comebreak', sans-serif;
+    font-size: 1.4em;
+    padding: 6px 16px;
+    border: 2px solid #660000;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #ffcc66, #ff9933);
+    color: #000;
+    box-shadow: 0 0 5px rgba(255, 102, 0, 0.6);
+    position: absolute;
+    top: 3vw;
+    left: 50vw;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: block;
+  }
+  #settingsIcon {
+  display: block;
+  position: absolute;
+  top: 5vw;
+  right: 5vw;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 100;
+  cursor: pointer;
+}
+
+#settingsIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+#settingsPopup {
+  display: none;
+  position: absolute;
+  top: 15vw;
+  right: 5vw;
+  width: 90vw;
+  max-width: 100vw;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  z-index: 200;
+  font-family: 'Comebreak', sans-serif;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+#popupContent #logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+#popupContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#skinBox {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 10px 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+#skinBox h3 {
+  display: none;
+}
+
+.skinCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 👈 centra verticalmente */
+  flex: 0 0 auto;
+  margin: 0 8px;
+  padding: 0;
+}
+.skinCard input[type="radio"] {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+
+.skinCard img {
+  width: 50px;
+  height: 50px;
+}
+
+
+
+
+
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Giok-Etto",
+  "short_name": "Giok-Etto",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff6600",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/players/player_etto.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/players/player_etto.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
