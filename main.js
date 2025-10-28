@@ -164,7 +164,7 @@ window.addEventListener("keydown", e => {
 });
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-canvas.addEventListener("touchstart", e => {
+window.addEventListener("touchstart", e => {
     e.preventDefault(); // 👈 impedisce scroll o zoom
     jump();
   });
@@ -835,3 +835,4 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
