@@ -165,9 +165,10 @@ window.addEventListener("keydown", e => {
 const isMobile = window.innerWidth <= 768 && window.innerHeight < window.innerWidth;
 
 if (isMobile) {
-  document.getElementById("gameCanvas").addEventListener("touchstart", () => {
+  document.getElementById("gameCanvas").addEventListener("touchstart", e => {
+    e.preventDefault(); // 👈 impedisce scroll o zoom
     jump();
-  });
+  }, { passive: false });
 } else {
   document.getElementById("gameCanvas").addEventListener("click", () => {
     togglePause(); // o qualunque funzione tu usi per la pausa
