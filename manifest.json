@@ -9,12 +9,7 @@
   "icons": [
     {
       "src": "assets/players/player_etto.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/players/player_etto.png",
-      "sizes": "512x512",
+      "sizes": "50x50",
       "type": "image/png"
     }
   ]
