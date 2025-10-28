@@ -164,21 +164,10 @@ window.addEventListener("keydown", e => {
 });
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-
-if (isTouchDevice) {
-  canvas.addEventListener("touchstart", e => {
+canvas.addEventListener("touchstart", e => {
     e.preventDefault(); // 👈 impedisce scroll o zoom
     jump();
-  }, { passive: false });
-} else {
-  canvas.addEventListener("click", () => {
-    togglePause(); // solo su desktop
   });
-
-  window.addEventListener("keydown", e => {
-    if (e.code === "Space") jump();
-  });
-}
 
 function jump() {
   if (player.grounded) {
