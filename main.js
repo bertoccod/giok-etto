@@ -162,16 +162,21 @@ window.addEventListener("keydown", e => {
     jump();
   }
 });
-const isMobile = window.innerWidth <= 768 && window.innerHeight < window.innerWidth;
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-if (isMobile) {
-  document.getElementById("gameCanvas").addEventListener("touchstart", e => {
+
+if (isTouchDevice) {
+  canvas.addEventListener("touchstart", e => {
     e.preventDefault(); // 👈 impedisce scroll o zoom
     jump();
   }, { passive: false });
 } else {
-  document.getElementById("gameCanvas").addEventListener("click", () => {
-    togglePause(); // o qualunque funzione tu usi per la pausa
+  canvas.addEventListener("click", () => {
+    togglePause(); // solo su desktop
+  });
+
+  window.addEventListener("keydown", e => {
+    if (e.code === "Space") jump();
   });
 }
 
