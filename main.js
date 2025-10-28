@@ -1,9 +1,9 @@
-import { loadTextures } from './_texture.js';
-import { baseClass } from './_base.js';
-import { playerClass } from './_player.js';
-import { cuboClass } from './_cubo.js';
+import { loadTextures } from './texture.js';
+import { baseClass } from './base.js';
+import { playerClass } from './player.js';
+import { cuboClass } from './cubo.js';
 import { puntaClass } from './punta.js';
-import { stoneballClass } from './_stoneball.js';
+import { stoneballClass } from './stoneball.js';
 import { ffClass } from './fastF.js';
 
 if ('serviceWorker' in navigator) {
