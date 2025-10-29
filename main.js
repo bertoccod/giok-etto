@@ -164,9 +164,9 @@ window.addEventListener("keydown", e => {
 });
 
 window.addEventListener("touchstart", e => {
-    e.preventDefault();
+    e.preventDefault(); 
     jump();
-  });
+}, { passive: false });
 /*
 function jump() {
   if (player.grounded) {

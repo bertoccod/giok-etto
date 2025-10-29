@@ -205,6 +205,10 @@ display: none;
 
 
 @media (max-width: 768px) and (orientation: landscape) {
+  body, html{
+    touch-action: none;
+    overflow: hidden;
+  }
   #controlli {
     display: none;
   }
@@ -354,15 +358,8 @@ display: none;
   line-height: 1;
   vertical-align: middle;
 }
-
-
-.skinCard img {
+  .skinCard img {
   width: 50px;
   height: 50px;
 }
-
-
-
-
-
 }
