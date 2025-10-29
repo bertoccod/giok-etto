@@ -192,6 +192,7 @@ function handleTouchJump(e) {
     e.stopPropagation(); 
     
     if (gameRunning) {
+      alert("Tocco");
         jump();
     }
 }
@@ -888,4 +889,5 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
