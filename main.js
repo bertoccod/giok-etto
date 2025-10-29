@@ -142,6 +142,19 @@ export function start(){
     punti=Number(localStorage.getItem("punti"));
     ptLabel.textContent="PUNTI "+punti;
     //obsCounter=0;//DA ELIMINARE DOPO DEBUG
+    // NUOVO CODICE AGGIUNTO QUI: Nascondi gli elementi della UI
+    const punti = document.getElementById("punti");
+    const levelInput = document.getElementById("levelNumber");
+    const playButton = document.getElementById("play");
+    const settingsIcon = document.getElementById("settingsIcon");
+
+    if (isMobileLandscape()) {
+        // Nascondi gli elementi di controllo in modalità landscape
+        punti.style.visibility = 'hidden';
+        levelInput.style.visibility = 'hidden';
+        playButton.style.visibility = 'hidden';
+        settingsIcon.style.visibility = 'hidden';
+    }
     //GESTIONE SKIN
     loadBGGame(skin); 
     lastObj={tipo:0, y:0, width:50};
@@ -750,6 +763,19 @@ function isGameOver(){
   safeSkinSelection();
   gameOver = true;
   gameRunning=false;
+  // NUOVO CODICE AGGIUNTO QUI: Mostra gli elementi della UI
+    const punti = document.getElementById("punti");
+    const levelInput = document.getElementById("levelNumber");
+    const playButton = document.getElementById("play");
+    const settingsIcon = document.getElementById("settingsIcon");
+
+    if (isMobileLandscape()) {
+        // Mostra gli elementi di controllo in modalità landscape
+        punti.style.visibility = 'visible';
+        levelInput.style.visibility = 'visible';
+        playButton.style.visibility = 'visible';
+        settingsIcon.style.visibility = 'visible';
+    }
 }
 
 function isVittoria(){
