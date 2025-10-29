@@ -150,10 +150,10 @@ export function start(){
 
     if (isMobileLandscape()) {
         // Nascondi gli elementi di controllo in modalità landscape
-        puntilB.style.visibility = 'hidden';
-        levelInput.style.visibility = 'hidden';
-        playButton.style.visibility = 'hidden';
-        settingsIcon.style.visibility = 'hidden';
+        puntilB.style.display = 'none';
+        levelInput.style.display = 'none';
+        playButton.style.display = 'none';
+        settingsIcon.style.display = 'none';
     }
     //GESTIONE SKIN
     loadBGGame(skin); 
@@ -776,10 +776,10 @@ function isGameOver(){
 
     if (isMobileLandscape()) {
         // Mostra gli elementi di controllo in modalità landscape
-        puntilB.style.visibility = 'visible';
-        levelInput.style.visibility = 'visible';
-        playButton.style.visibility = 'visible';
-        settingsIcon.style.visibility = 'visible';
+        puntilB.style.display = 'block';
+        levelInput.style.display = 'block';
+        playButton.style.display = 'block';
+        settingsIcon.style.display = 'block';
     }
 }
 
@@ -795,6 +795,18 @@ function isVittoria(){
   level = parseInt(levelbox.value,10)+1;
   levelbox.value=level;
   gameRunning=false;
+  // CODICE DA AGGIUNGERE QUI per mostrare di nuovo i controlli
+  const puntilB = document.getElementById("punti");
+  const levelInput = document.getElementById("levelNumber");
+  const playButton = document.getElementById("play");
+  const settingsIcon = document.getElementById("settingsIcon");
+
+  if (isMobileLandscape()) {
+      puntilB.style.display = 'block';
+      levelInput.style.display = 'block';
+      playButton.style.display = 'block';
+      settingsIcon.style.display = 'block';
+  }
 }
 
 function enableSkin(punti) {
