@@ -177,7 +177,7 @@ window.addEventListener("keydown", e => {
 });
 
 
-window.addEventListener("touchstart", e => {
+canvas.addEventListener("touchstart", e => {
   if (gameRunning) {
     e.preventDefault();
     console.log("touch!");
@@ -185,16 +185,7 @@ window.addEventListener("touchstart", e => {
   }
 
 }, { passive: false });
-/*
-function jump() {
-  if (player.grounded) {
-    player.velocityY = player.jumpStrength;
-    player.doubleJump = 1;
-  } else if (player.doubleJump === 1) {
-    player.velocityY = player.jumpStrength;
-    player.doubleJump = 2;
-  }
-}*/
+
 function jump() {
   if (!player || !gameRunning) {return;}
 
