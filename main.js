@@ -165,6 +165,7 @@ export function start(){
     console.log("Sono in start, ho scelto ostacolo n. ",nextObj.tipo);
     datiOstacolo(0);
     console.log("Sono in start, ho chiamato datiOstacolo");
+    alert("START premuto\ngameRunning: " + gameRunning + "\nplayer: " + (player ? "OK" : "null"));
     requestAnimationFrame(gameLoop); //START AL GAMELOOP!
   }
 }
@@ -878,6 +879,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
