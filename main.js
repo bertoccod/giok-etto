@@ -185,19 +185,9 @@ canvas.addEventListener("touchstart", e => {
   }
 }, { passive: false });*/
 function handleTouchJump(e) {
-  e.preventDefault();
-  e.stopPropagation();
-
-  let stato = "";
-  stato += "gameRunning: " + gameRunning + "\n";
-  stato += "player: " + (player ? "OK" : "null") + "\n";
-
-  alert("TOCCO RICEVUTO\n" + stato);
-
-  if (gameRunning && player) {
-    jump();
-  }
+  alert("TOCCO RICEVUTO");
 }
+canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, capture: true });
 
 function jump() {
   if (!player || !gameRunning) {return;}
@@ -888,6 +878,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
