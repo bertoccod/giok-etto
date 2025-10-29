@@ -187,14 +187,14 @@ canvas.addEventListener("touchstart", e => {
 function handleTouchJump(e) {
   e.preventDefault();
   e.stopPropagation();
-
-  alert("Tocco ricevuto → chiamo jump()");
   jump();
 }
 canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, capture: true });
 
 function jump() {
-  if (!player || !gameRunning) {return;}
+  if (!player || !gameRunning) return;
+
+  alert("Salto! grounded: " + player.grounded + " | doubleJump: " + player.doubleJump);
 
   if (player.grounded) {
     player.velocityY = player.jumpStrength;
@@ -882,6 +882,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
