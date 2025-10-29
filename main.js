@@ -14,6 +14,14 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Mini-console on-screen per debug mobile
+const dbg = document.createElement('div');
+dbg.id = 'dbg';
+dbg.style = 'position:fixed;bottom:5px;left:5px;z-index:9999;background:rgba(0,0,0,0.6);color:#fff;padding:6px 8px;font-size:12px;border-radius:6px;max-width:40vw;word-break:break-word';
+document.body.appendChild(dbg);
+function dlog(...m){ dbg.textContent = m.join(' | '); console.log(...m); }
+
+
 
 //FUNZIONE CHE GESTISCE IL RANDOM CON SEED
 function mulberry32(seed) {
