@@ -188,8 +188,11 @@ function handleTouchJump(e) {
   e.preventDefault();
   e.stopPropagation();
 
-  let stato = "gameRunning: " + gameRunning + "\nplayer: " + (player ? "OK" : "null");
-  alert("Tocco\n" + stato);
+  let stato = "";
+  stato += "gameRunning: " + gameRunning + "\n";
+  stato += "player: " + (player ? "OK" : "null") + "\n";
+
+  alert("TOCCO RICEVUTO\n" + stato);
 
   if (gameRunning && player) {
     jump();
@@ -885,6 +888,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
