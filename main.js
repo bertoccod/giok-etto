@@ -185,20 +185,16 @@ canvas.addEventListener("touchstart", e => {
   }
 }, { passive: false });*/
 function handleTouchJump(e) {
-    // 1. Impedisce che l'evento passi al sistema operativo (es. swipe-back)
-    e.preventDefault(); 
-    
-    // 2. Impedisce che l'evento raggiunga elementi esterni o gestori di livello superiore
-    e.stopPropagation(); 
-    
-    if (gameRunning) {
-      alert("Tocco");
-        jump();
-    }
-}
+  e.preventDefault();
+  e.stopPropagation();
 
-// Aggiungi l'evento in modalità CAPTURE per intercettarlo il prima possibile (terzo argomento 'true')
-canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, capture: true });
+  let stato = "gameRunning: " + gameRunning + "\nplayer: " + (player ? "OK" : "null");
+  alert("Tocco\n" + stato);
+
+  if (gameRunning && player) {
+    jump();
+  }
+}
 
 function jump() {
   if (!player || !gameRunning) {return;}
@@ -889,5 +885,6 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
