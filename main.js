@@ -163,7 +163,7 @@ window.addEventListener("keydown", e => {
   }
 });
 
-window.addEventListener("touchstart", e => {
+canvas.addEventListener("touchstart", e => {
     e.preventDefault(); 
     jump();
 }, { passive: false });
