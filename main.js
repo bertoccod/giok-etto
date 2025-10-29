@@ -162,14 +162,24 @@ window.addEventListener("keydown", e => {
     jump();
   }
 });
-const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 window.addEventListener("touchstart", e => {
-    e.preventDefault(); // 👈 impedisce scroll o zoom
+    e.preventDefault();
     jump();
   });
-
+/*
 function jump() {
+  if (player.grounded) {
+    player.velocityY = player.jumpStrength;
+    player.doubleJump = 1;
+  } else if (player.doubleJump === 1) {
+    player.velocityY = player.jumpStrength;
+    player.doubleJump = 2;
+  }
+}*/
+function jump() {
+  if (!player || !gameRunning) {return;}
+
   if (player.grounded) {
     player.velocityY = player.jumpStrength;
     player.doubleJump = 1;
@@ -203,10 +213,6 @@ document.querySelectorAll('input[name="skin"]').forEach(radio => {
     console.log("Skin selezionata:", skin);
   });
 });
-
-
-
-
 
 //GAMELOOP
 function gameLoop(currentTime) {
@@ -835,4 +841,3 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
-
