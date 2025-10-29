@@ -176,9 +176,14 @@ window.addEventListener("keydown", e => {
   }
 });
 
+
 window.addEventListener("touchstart", e => {
-    e.preventDefault(); 
+  if (gameRunning) {
+    e.preventDefault();
+    console.log("touch!");
     jump();
+  }
+
 }, { passive: false });
 /*
 function jump() {
