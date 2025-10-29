@@ -194,8 +194,6 @@ canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, captur
 function jump() {
   if (!player || !gameRunning) return;
 
-  alert("Salto! grounded: " + player.grounded + " | doubleJump: " + player.doubleJump);
-
   if (player.grounded) {
     player.velocityY = player.jumpStrength;
     player.doubleJump = 1;
@@ -882,6 +880,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
