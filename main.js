@@ -176,15 +176,28 @@ window.addEventListener("keydown", e => {
   }
 });
 
-
+/*
 canvas.addEventListener("touchstart", e => {
   if (gameRunning) {
     e.preventDefault();
     console.log("touch!");
     jump();
   }
+}, { passive: false });*/
+function handleTouchJump(e) {
+    // 1. Impedisce che l'evento passi al sistema operativo (es. swipe-back)
+    e.preventDefault(); 
+    
+    // 2. Impedisce che l'evento raggiunga elementi esterni o gestori di livello superiore
+    e.stopPropagation(); 
+    
+    if (gameRunning) {
+        jump();
+    }
+}
 
-}, { passive: false });
+// Aggiungi l'evento in modalità CAPTURE per intercettarlo il prima possibile (terzo argomento 'true')
+canvas.addEventListener("touchstart", handleTouchJump, { passive: false, capture: true });
 
 function jump() {
   if (!player || !gameRunning) {return;}
