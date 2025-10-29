@@ -197,7 +197,7 @@ function handleTouchJump(e) {
 }
 
 // Aggiungi l'evento in modalità CAPTURE per intercettarlo il prima possibile (terzo argomento 'true')
-canvas.addEventListener("touchstart", handleTouchJump, { passive: false, capture: true });
+canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, capture: true });
 
 function jump() {
   if (!player || !gameRunning) {return;}
@@ -888,3 +888,4 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
