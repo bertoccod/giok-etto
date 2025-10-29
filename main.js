@@ -189,7 +189,7 @@ function handleTouchJump(e) {
   e.stopPropagation();
   jump();
 }
-canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, capture: true });
+canvas.addEventListener("click", handleTouchJump, { passive: false, capture: true });
 
 function jump() {
   if (!player || !gameRunning) return;
@@ -880,6 +880,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
