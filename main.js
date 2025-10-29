@@ -165,7 +165,6 @@ export function start(){
     console.log("Sono in start, ho scelto ostacolo n. ",nextObj.tipo);
     datiOstacolo(0);
     console.log("Sono in start, ho chiamato datiOstacolo");
-    alert("START premuto\ngameRunning: " + gameRunning + "\nplayer: " + (player ? "OK" : "null"));
     requestAnimationFrame(gameLoop); //START AL GAMELOOP!
   }
 }
@@ -186,7 +185,11 @@ canvas.addEventListener("touchstart", e => {
   }
 }, { passive: false });*/
 function handleTouchJump(e) {
-  alert("TOCCO RICEVUTO");
+  e.preventDefault();
+  e.stopPropagation();
+
+  alert("Tocco ricevuto → chiamo jump()");
+  jump();
 }
 canvas.addEventListener("pointerdown", handleTouchJump, { passive: false, capture: true });
 
@@ -879,6 +882,7 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
+
 
 
 
