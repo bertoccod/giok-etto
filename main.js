@@ -272,9 +272,12 @@ const deltaTime = Math.max(currentTime - lastTime, 16.67);
   update(deltaTime, lastTime);
   draw(deltaTime);
   //da eliminare
-  ctx.fillStyle = "white";
+ctx.fillStyle = "white";
 ctx.font = "bold 16px sans-serif";
-ctx.fillText("Δt: " + deltaTime.toFixed(2) + " ms", 10, 20);
+ctx.fillText("Y: " + player.y.toFixed(1), 10, 40);
+ctx.fillText("VY: " + player.velocityY.toFixed(1), 10, 60);
+ctx.fillText("G: " + player.grounded, 10, 80);
+
 //elimina fino a qui
 
   //CHECK COLLISION
