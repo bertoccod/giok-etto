@@ -70,6 +70,10 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
       if (this.x === limitLeft && keys.left) {
         this.velocityX = 0;
       }
+      ctx.fillText("Y: " + player.y.toFixed(1), 10, 40);
+ctx.fillText("VY: " + player.velocityY.toFixed(1), 10, 60);
+ctx.fillText("G: " + player.grounded, 10, 80);
+
     },
 
     draw(ctx) {
