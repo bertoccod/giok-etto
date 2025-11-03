@@ -192,8 +192,7 @@ function handleTouchJump(e) {
     e.stopPropagation(); 
     
     if (gameRunning) {
-      player.y -= 50;
-        //jump();
+        jump();
     }
 }
 
