@@ -347,7 +347,8 @@ function update(deltaTime, currentTime) {
   const numero = prima-ostacoli.length;
   if (numero>0){
     if (SuperTime>0){punti+=numero*10;} else {punti+=numero*5;}
-    ptLabel.textContent="PUNTI "+Number(punti);
+    //ptLabel.textContent="PUNTI "+Number(punti);
+    ptLabel.textContent=deltaTime;
   }
   //UPDATE BASE
   base.update(deltaTime)
