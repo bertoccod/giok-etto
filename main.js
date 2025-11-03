@@ -263,7 +263,10 @@ function gameLoop(currentTime) {
   if (!lastTime){
       lastTime = currentTime; //SE NON ESISTE UN TEMPO PASSATO IMPOSTALO CON QUESTO
   }
-  const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
+  //const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
+const deltaTime = Math.max(currentTime - lastTime, 16.67);
+
+
   lastTime = currentTime; //ORA IL TEMPO SCORSO E' QUESTO
   if (SuperTime>0){SuperTime-=deltaTime;console.log("Supertime vale: ",SuperTime)} else {SuperTime=0; SuperSpeed=0;}
   update(deltaTime, lastTime);

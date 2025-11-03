@@ -1,7 +1,7 @@
 // service-worker.js
 
 // **IMPORTANTE**: INCREMENTA QUESTO NUMERO AD OGNI AGGIORNAMENTO MAGGIORE DEL GIOCO
-const CACHE_NAME = 'gioketto-offline-cache-v1.9'; 
+const CACHE_NAME = 'gioketto-offline-cache-v1.12'; 
 
 // Elenca i file essenziali per far funzionare il gioco offline
 const urlsToCache = [
