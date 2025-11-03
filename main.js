@@ -268,6 +268,12 @@ function gameLoop(currentTime) {
   if (SuperTime>0){SuperTime-=deltaTime;console.log("Supertime vale: ",SuperTime)} else {SuperTime=0; SuperSpeed=0;}
   update(deltaTime, lastTime);
   draw(deltaTime);
+  //da eliminare
+  ctx.fillStyle = "white";
+ctx.font = "bold 16px sans-serif";
+ctx.fillText("Δt: " + deltaTime.toFixed(2) + " ms", 10, 20);
+//elimina fino a qui
+
   //CHECK COLLISION
   ostacoli.forEach(ostacolo=>{
     const type = checkCollision(player, ostacolo); //che collisione c'è stata, se c'è
@@ -347,8 +353,7 @@ function update(deltaTime, currentTime) {
   const numero = prima-ostacoli.length;
   if (numero>0){
     if (SuperTime>0){punti+=numero*10;} else {punti+=numero*5;}
-    //ptLabel.textContent="PUNTI "+Number(punti);
-    ptLabel.textContent=deltaTime;
+    ptLabel.textContent="PUNTI "+Number(punti);
   }
   //UPDATE BASE
   base.update(deltaTime)
