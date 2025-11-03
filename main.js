@@ -199,7 +199,7 @@ function handleTouchJump(e) {
 
 // Aggiungi l'evento in modalità CAPTURE per intercettarlo il prima possibile (terzo argomento 'true')
 canvas.addEventListener("touchstart", handleTouchJump, { passive: false, capture: true });
-
+/*
 function jump() {
   if (!player || !gameRunning) {return;}
 
@@ -210,7 +210,19 @@ function jump() {
     player.velocityY = player.jumpStrength;
     player.doubleJump = 2;
   }
+}*/
+function jump() {
+  if (!player || !gameRunning) return;
+
+  if (player.grounded) {
+    player.velocityY = -player.jumpStrength; // ← negativo = verso l'alto
+    player.doubleJump = 1;
+  } else if (player.doubleJump === 1) {
+    player.velocityY = -player.jumpStrength;
+    player.doubleJump = 2;
+  }
 }
+
 
 const keys = {
     right: false,
