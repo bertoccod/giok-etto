@@ -185,14 +185,23 @@ canvas.addEventListener("touchstart", e => {
   }
 }, { passive: false });*/
 function handleTouchJump(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  jump();
+    // 1. Impedisce che l'evento passi al sistema operativo (es. swipe-back)
+    e.preventDefault(); 
+    
+    // 2. Impedisce che l'evento raggiunga elementi esterni o gestori di livello superiore
+    e.stopPropagation(); 
+    
+    if (gameRunning) {
+      player.y -= 50;
+        //jump();
+    }
 }
-canvas.addEventListener("click", handleTouchJump, { passive: false, capture: true });
+
+// Aggiungi l'evento in modalità CAPTURE per intercettarlo il prima possibile (terzo argomento 'true')
+canvas.addEventListener("touchstart", handleTouchJump, { passive: false, capture: true });
 
 function jump() {
-  if (!player || !gameRunning) return;
+  if (!player || !gameRunning) {return;}
 
   if (player.grounded) {
     player.velocityY = player.jumpStrength;
@@ -880,42 +889,3 @@ document.getElementById("settingsIcon").onclick = () => {
 
 window.addEventListener("load", moveSettingsToPopup);
 window.addEventListener("resize", moveSettingsToPopup);
-
-// main.js - Aggiungi alla fine del file
-
-// Forza la riattivazione dell'input quando l'app torna in primo piano
-document.addEventListener('visibilitychange', () => {
-    // Controlla se il documento è tornato visibile
-    if (document.visibilityState === 'visible') {
-        
-        // 1. Tenta di mettere a fuoco la finestra (risolve molti bug di input)
-        window.focus(); 
-
-        // 2. Se stai usando il Debounce (gestione del tempo), assicurati che sia pronto:
-        // lastTouchJumpTime = 0; 
-        
-        // 3. Se l'utente ha il dito sullo schermo al momento della riapertura, 
-        // forziamo un tentativo di salto con un piccolo ritardo
-        if (gameRunning) {
-            // Aggiungere un piccolo ritardo asincrono (0ms) per lasciare 
-            // il tempo al browser di ripristinare il focus prima di eseguire il salto.
-            setTimeout(() => {
-                // Se il giocatore non è ancora in aria e non ha il doppio salto attivo, salta.
-                // (Adatta questa logica se necessario, l'obiettivo è forzare l'evento)
-                if (player && player.grounded) {
-                     jump(); 
-                }
-            }, 50); // Ritardo di 50ms per stabilizzare il browser
-        }
-    }
-});
-
-
-
-
-
-
-
-
-
-
