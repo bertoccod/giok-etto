@@ -44,7 +44,7 @@ let numeroOstacoliLivello; //NUMERO DI OSTACOLI NEL LIVELLO
 let counterOstacoli=0; //CONTATORE DEGLI OSTACOLI
 let firstObs=true; //DEVO SPAWNARE IL PRIMO OGGETTO?
 let patternWidth=0; //LUNGHEZZA DEI PATTERN
-let globalSpeed=200; //VELOCITA' DI GIOCO
+let globalSpeed=250; //VELOCITA' DI GIOCO
 let SuperSpeed=0; //FUNZIONE PER FASTFORWARD
 let SuperTime=0; //TEMPO IN FASTFORWARD
 
@@ -122,7 +122,7 @@ export function start(){
     ostacoli = []; //PULIAMO GLI OSTACOLI
     SuperSpeed=0; //RESETTO FUNZIONE PER FASTFORWARD
     SuperTime=0; //RESETTO TEMPO IN FASTFORWARD
-    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 50,0,skin); //CREIAMO IL PLAYER
+    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 250,0,skin); //CREIAMO IL PLAYER
     base.draw(ctx); //DISEGNAMO LA BASE
     document.getElementById("message").style.visibility = "hidden"; //NASCONDIAMO IL MESSAGE SPAN
     //SCELTA DEL LIVELLO
