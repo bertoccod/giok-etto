@@ -122,7 +122,7 @@ export function start(){
     ostacoli = []; //PULIAMO GLI OSTACOLI
     SuperSpeed=0; //RESETTO FUNZIONE PER FASTFORWARD
     SuperTime=0; //RESETTO TEMPO IN FASTFORWARD
-    player = playerClass(100,canvas.height-30-base.height,50,50,-750, 300,0,skin); //CREIAMO IL PLAYER
+    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 300,0,skin); //CREIAMO IL PLAYER
     base.draw(ctx); //DISEGNAMO LA BASE
     document.getElementById("message").style.visibility = "hidden"; //NASCONDIAMO IL MESSAGE SPAN
     //SCELTA DEL LIVELLO
@@ -190,6 +190,7 @@ function jump() {
 
   if (player.grounded) {
     player.velocityY = player.jumpStrength;
+    console.log("SALTO! VY:", player.velocityY, "Y:", player.y);
     player.doubleJump = 1;
   } else if (player.doubleJump === 1) {
     player.velocityY = player.jumpStrength;
@@ -239,10 +240,11 @@ function gameLoop(currentTime) {
       lastTime = currentTime; //SE NON ESISTE UN TEMPO PASSATO IMPOSTALO CON QUESTO
   }
   //const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
-const deltaTime = Math.max(currentTime - lastTime, 16.67);
+  const rawDelta = currentTime - lastTime;
+  const deltaTime = Math.min(Math.max(rawDelta, 16.67), 33.33); // tra 16.67 e 33.33 ms
+  lastTime = currentTime;
 
 
-  lastTime = currentTime; //ORA IL TEMPO SCORSO E' QUESTO
   if (SuperTime>0){SuperTime-=deltaTime;console.log("Supertime vale: ",SuperTime)} else {SuperTime=0; SuperSpeed=0;}
   update(deltaTime, lastTime);
   draw(deltaTime);
@@ -252,17 +254,14 @@ const deltaTime = Math.max(currentTime - lastTime, 16.67);
     const type = checkCollision(player, ostacolo); //che collisione c'è stata, se c'è
     switch (type){
       case "landing":
-        console.log("landing!");
         if (ostacolo.tipo!==0 && ostacolo.tipo!==2 && ostacolo.tipo!==7){gameOver=true;break}
       case "bounce":
         if (ostacolo.tipo==0 || ostacolo.tipo==2){
           player.y = ostacolo.getBounds().bottom;
           player.velocityY = 0;
-          console.log("bouncing!");
           break
         }
         case "super":
-          console.log("collisione tipo super");
           SuperTime=5000;
           SuperSpeed=100;
           ostacoli.forEach(ostacolo => {
@@ -270,7 +269,7 @@ const deltaTime = Math.max(currentTime - lastTime, 16.67);
           });
           break
       case "collision":
-        gameOver=true; console.log ("collisione");break
+        gameOver=true; break
 
     }
   });
@@ -291,7 +290,6 @@ function update(deltaTime, currentTime) {
       //const gruppo = createPattern(idPatt, currentTime);
       const gruppo = createPattern(nextObj.patternID, currentTime);
       ostacoli.push(...gruppo);
-      console.log ("PAttern! ");
       counterOstacoli++;
       //IMPOSTO L'ULTIMO OSTACOLO DEL GRUPPO COME ULTIMO SPAWNATO
       const ultimo = gruppo[gruppo.length - 1];
@@ -310,7 +308,6 @@ function update(deltaTime, currentTime) {
     //PREPARO IL PROSSIMO OSTACOLO
     nextObj.tipo = chooseOstacolo();
     datiOstacolo(currentTime);
-    console.log("Ho chiamato datiOstacolo dall'update");
   }
 
   //UPDATE OSTACOLI
@@ -399,12 +396,10 @@ function chooseOstacolo() {
 
 //IMPOSTO I DATI DELL'OSTACOLO
 function datiOstacolo(currentTime){
-  console.log("sono in datiOstacolo e nextObj.tipo vale ",nextObj.tipo);
   switch (nextObj.tipo){
     case 0:
       { //cubo
         nextObj.width=Math.floor(20+rnd()*(50-20+1));
-        //nextObj.width=50;
         nextObj.y=0;
         let spazio=450;
         if (lastObj.tipo == 0 || lastObj.tipo==2)// LAST CUBO/PIATTAF SPAWN 10/450/750-1100
@@ -439,7 +434,6 @@ function datiOstacolo(currentTime){
         nextObj.width = Math.floor(120 + rnd() * (220 - 120 + 1));  
         if (lastObj.tipo !== 2) {//OSTACOLO PRECEDENTE NON E' PIATTAFORMA, STO A STEP 1
           nextObj.y = maxSalto;
-          console.log("altezza: ",nextObj.y);
         } else if (lastObj.tipo==2 && lastObj.y==maxSalto){// LAST E' PIATTAFORMA A STEP 1
             nextObj.y = lastObj.y+maxSalto; //VADO A STEP 2
           } else { //LAST E' PIATTAFORMA MAGGIORE DI STEP 1
@@ -480,7 +474,6 @@ function datiOstacolo(currentTime){
       const idPatt = Math.floor(rnd() * 7);
       //const idPatt=5;
       nextObj.patternID = idPatt;
-      console.log("pattern n. ",idPatt);
       nextSpawnTime = currentTime + ((lastObj.width / globalSpeed) * 1000) + 850;
       break;
     }
@@ -505,8 +498,6 @@ function datiOstacolo(currentTime){
       break;
     }
     default:{
-      console.log("entro in default di datiOstacolo");
-      console.log("nextObj.tipo= ",nextObj.tipo);
       nextObj.width=500;
       nextSpawnTime=currentTime+((nextObj.width/globalSpeed)*1000)+750;
       break;}
@@ -519,12 +510,10 @@ function createOstacolo(){
       case 0: {
         //let cubo = cuboClass(canvas.width + 20, canvas.height-base.height-50, 50,50, globalSpeed,0, `stone_${skin}`, textureMap);
         let cubo = cuboClass(canvas.width + 20, canvas.height-base.height-50, 50,50, globalSpeed+SuperSpeed,0, `stone_${skin}`, textureMap);
-        console.log ("Cubo con width: 50");
         return cubo;
       }
       case 1: {
         let punta = puntaClass(canvas.width + 20, canvas.height-base.height-30, 30,30, globalSpeed+SuperSpeed, 1,`punta_${skin}`, textureMap);
-        console.log ("Punta  con width: 30");
         return punta;
       }
 
@@ -535,36 +524,30 @@ function createOstacolo(){
             piattaforma = cuboClass(canvas.width + 20,canvas.height-base.height-nextObj.y-20, nextObj.width, 20, globalSpeed+SuperSpeed,2, `double_platform_${skin}`, textureMap, true);  
           } else {
             piattaforma = cuboClass(canvas.width + 20,canvas.height-base.height-nextObj.y-20, nextObj.width, 20, globalSpeed+SuperSpeed,2, `platform_${skin}`, textureMap, true);
-            console.log ("PRIMA Piattaforma width: ",nextObj.width, " ad h: ",nextObj.y);
           }
         } else {
           if (nextObj.width>190){
             piattaforma = cuboClass(canvas.width + 20,canvas.height-base.height-nextObj.y-20, nextObj.width, 20, globalSpeed+SuperSpeed,2, `double_platform_${skin}`, textureMap);  
           }else {
             piattaforma = cuboClass(canvas.width + 20,canvas.height-base.height-nextObj.y-20, nextObj.width, 20, globalSpeed+SuperSpeed,2, `platform_${skin}`, textureMap);
-            console.log ("Piattaforma width: ",nextObj.width, " ad h: ",nextObj.y);
           }
         }
         return piattaforma;
       }
       case 3:{
         let doppiaPunta = puntaClass(canvas.width + 20, canvas.height-base.height-25, nextObj.width+20,25, globalSpeed+SuperSpeed, 3,`doppiaPunta_${skin}`, textureMap);
-        console.log ("DoppiaPunta con width: ",nextObj.width, " - ",nextSpawnTime);
         return doppiaPunta;
       }
       case 4: {
         let doppioCubo = cuboClass(canvas.width + 20, canvas.height-base.height-nextObj.y, 50,100, globalSpeed+SuperSpeed,4, `double_stone_${skin}`, textureMap);
-        console.log ("Doppio Cubo con width: 50");
         return doppioCubo;
       }
       case 6: {
         let stoneBall = stoneballClass(canvas.width+20, canvas.height-base.height-30, 30,30, globalSpeed+SuperSpeed+50,6, "stoneball", textureMap);
-        console.log("StoneBall con y: ",canvas.height-base.height-50);
         return stoneBall;
       }
       case 7: {
         let flash = ffClass(canvas.width+20, canvas.height-base.height-30, nextObj.width, 30, globalSpeed+SuperSpeed, 7, "fastForward", textureMap);
-        console.log("FlashForward");
         return flash;
       }
       default: {console.log("SONO IN DEFAULT!");
