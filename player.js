@@ -15,7 +15,7 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
     height: h,
     velocityY: 0,
     velocityX: 0,
-    gravity: 1800,
+    gravity: 1400,
     jumpStrength: jS,
     speed: speed,
     grounded: false,
