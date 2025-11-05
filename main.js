@@ -122,7 +122,7 @@ export function start(){
     ostacoli = []; //PULIAMO GLI OSTACOLI
     SuperSpeed=0; //RESETTO FUNZIONE PER FASTFORWARD
     SuperTime=0; //RESETTO TEMPO IN FASTFORWARD
-    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 150,0,skin); //CREIAMO IL PLAYER
+    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 50,0,skin); //CREIAMO IL PLAYER
     base.draw(ctx); //DISEGNAMO LA BASE
     document.getElementById("message").style.visibility = "hidden"; //NASCONDIAMO IL MESSAGE SPAN
     //SCELTA DEL LIVELLO
