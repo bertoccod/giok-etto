@@ -176,29 +176,15 @@ window.addEventListener("keydown", e => {
   }
 });
 
-/*
+
 canvas.addEventListener("touchstart", e => {
   if (gameRunning) {
     e.preventDefault();
     console.log("touch!");
     jump();
   }
-}, { passive: false });*/
-function handleTouchJump(e) {
-    // 1. Impedisce che l'evento passi al sistema operativo (es. swipe-back)
-    e.preventDefault(); 
-    
-    // 2. Impedisce che l'evento raggiunga elementi esterni o gestori di livello superiore
-    e.stopPropagation(); 
-    
-    if (gameRunning) {
-        jump();
-    }
-}
+}, { passive: false });
 
-// Aggiungi l'evento in modalità CAPTURE per intercettarlo il prima possibile (terzo argomento 'true')
-canvas.addEventListener("touchstart", handleTouchJump, { passive: false, capture: true });
-/*
 function jump() {
   if (!player || !gameRunning) {return;}
 
@@ -207,17 +193,6 @@ function jump() {
     player.doubleJump = 1;
   } else if (player.doubleJump === 1) {
     player.velocityY = player.jumpStrength;
-    player.doubleJump = 2;
-  }
-}*/
-function jump() {
-  if (!player || !gameRunning) return;
-
-  if (player.grounded) {
-    player.velocityY = -player.jumpStrength; // ← negativo = verso l'alto
-    player.doubleJump = 1;
-  } else if (player.doubleJump === 1) {
-    player.velocityY = -player.jumpStrength;
     player.doubleJump = 2;
   }
 }
@@ -271,14 +246,6 @@ const deltaTime = Math.max(currentTime - lastTime, 16.67);
   if (SuperTime>0){SuperTime-=deltaTime;console.log("Supertime vale: ",SuperTime)} else {SuperTime=0; SuperSpeed=0;}
   update(deltaTime, lastTime);
   draw(deltaTime);
-  //da eliminare
-ctx.fillStyle = "white";
-ctx.font = "bold 16px sans-serif";
-ctx.fillText("Y: " + player.y.toFixed(1), 10, 40);
-ctx.fillText("VY: " + player.velocityY.toFixed(1), 10, 60);
-ctx.fillText("G: " + player.grounded, 10, 80);
-
-//elimina fino a qui
 
   //CHECK COLLISION
   ostacoli.forEach(ostacolo=>{

@@ -32,13 +32,12 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
         if (ostacolo.tipo!=1 && ostacolo.tipo!=3 && ostacolo.tipo!=6 && ostacolo.tipo!=7){ //ESCLUDO IL LANDING SU PUNTA, DOPPIA PUNTA, STONEBALL
           const ob = ostacolo.getBounds();
           if (
-  pl.bottom >= ob.top - 2 &&
-  pl.bottom <= ob.top + 10 && // ← margine verticale per evitare atterraggi prematuri
-  player.velocityY > 0 &&
-  pl.left < ob.right &&
-  pl.right > ob.left
-)
-
+            pl.bottom >= ob.top - 2 &&
+            pl.bottom <= ob.top + 10 && // ← margine verticale per evitare atterraggi prematuri
+            player.velocityY > 0 &&
+            pl.left < ob.right &&
+            pl.right > ob.left
+          )
         {
             player.velocityY = 0;
             player.grounded = true;
