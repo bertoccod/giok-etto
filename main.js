@@ -122,7 +122,7 @@ export function start(){
     ostacoli = []; //PULIAMO GLI OSTACOLI
     SuperSpeed=0; //RESETTO FUNZIONE PER FASTFORWARD
     SuperTime=0; //RESETTO TEMPO IN FASTFORWARD
-    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 250,0,skin); //CREIAMO IL PLAYER
+    player = playerClass(100,canvas.height-30-base.height,50,50,-850, 350,0,skin); //CREIAMO IL PLAYER
     base.draw(ctx); //DISEGNAMO LA BASE
     document.getElementById("message").style.visibility = "hidden"; //NASCONDIAMO IL MESSAGE SPAN
     //SCELTA DEL LIVELLO
@@ -133,7 +133,7 @@ export function start(){
     console.log("LIVELLO ",level);
     numeroOstacoliLivello=20+level;
     //numeroOstacoliLivello=3;
-    globalSpeed=200+Number(level)*5;
+    globalSpeed=180+Number(level)*3;
     console.log("Ostacoli: ",numeroOstacoliLivello," - Global Speed: ",globalSpeed);
     counterOstacoli=0;
     firstObs=true;
@@ -239,9 +239,11 @@ function gameLoop(currentTime) {
   if (!lastTime){
       lastTime = currentTime; //SE NON ESISTE UN TEMPO PASSATO IMPOSTALO CON QUESTO
   }
-  //const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
-  const rawDelta = currentTime - lastTime;
-  const deltaTime = Math.min(Math.max(rawDelta, 16.67), 33.33); // tra 16.67 e 33.33 ms
+  const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
+  //SECONDA VERSIONE COMMENTATA:
+  //const rawDelta = currentTime - lastTime;
+  //const deltaTime = Math.min(Math.max(rawDelta, 16.67), 33.33); // tra 16.67 e 33.33 ms
+
   lastTime = currentTime;
 
 
