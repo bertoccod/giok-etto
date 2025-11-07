@@ -10,8 +10,10 @@ export function cuboClass(x, y, w, h, speed, tipo, pattern, textureMap, firstPla
         color: "rgba(20, 209, 105, 1)",
         pattern: pattern,
         firstPlatform: firstPlatform,
-    update(deltaTime) {
-        this.x -= this.speed * (deltaTime / 1000);
+    update(deltaTime, globalSpeed, superSpeed, compFactor = 1) {
+        const dt = deltaTime / 1000;
+        const effectiveSpeed = (globalSpeed + superSpeed) * compFactor;
+        this.x -= effectiveSpeed * dt;
     },
 
     draw(ctx) {

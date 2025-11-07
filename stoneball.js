@@ -9,9 +9,12 @@ export function stoneballClass(x, y, w, h, speed, tipo, pattern, textureMap) {
         color: "gray",
         tipo: tipo,
         pattern: pattern,
-    update(deltaTime) {
-        this.x -= this.speed * (deltaTime / 1000);
-        this.rotation += this.speed * (deltaTime / 1000) / this.width;
+    update(deltaTime, globalSpeed, superSpeed, compFactor = 1) {
+        const dt = deltaTime / 1000;
+        const effectiveSpeed = (globalSpeed + superSpeed) * compFactor;
+
+        this.x -= effectiveSpeed * dt;
+        this.rotation += effectiveSpeed * dt / this.width;
     },
 
     draw(ctx) {

@@ -44,7 +44,7 @@ let numeroOstacoliLivello; //NUMERO DI OSTACOLI NEL LIVELLO
 let counterOstacoli=0; //CONTATORE DEGLI OSTACOLI
 let firstObs=true; //DEVO SPAWNARE IL PRIMO OGGETTO?
 let patternWidth=0; //LUNGHEZZA DEI PATTERN
-let globalSpeed=250; //VELOCITA' DI GIOCO
+let globalSpeed=500; //VELOCITA' DI GIOCO
 let SuperSpeed=0; //FUNZIONE PER FASTFORWARD
 let SuperTime=0; //TEMPO IN FASTFORWARD
 let compFactor=0;
@@ -247,9 +247,15 @@ function gameLoop(currentTime) {
   }
   //const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
   const rawDelta = currentTime - lastTime;
-  const deltaTime = Math.min(Math.max(rawDelta, 16.67), 33.33); // tra 16.67 e 33.33 ms
-  compFactor = (rawDelta < 16.67 && deltaTime >= 16.67) ? 0.5 : 1;
+  const deltaTime = Math.min(Math.max(rawDelta, 16.67), 25); // tra 16.67 e 33.33 ms
+ //compFactor = (rawDelta < 16.67 && deltaTime >= 16.67) ? 0.5 : 1;
+  compFactor = rawDelta < 12 ? 0.5 : 1;
+
+
+  
+
   lastTime = currentTime;
+  console.log("rawDelta:", rawDelta.toFixed(2), "deltaTime:", deltaTime.toFixed(2), "compFactor:", compFactor.toFixed(2));
 
 
   if (SuperTime>0){SuperTime-=deltaTime;console.log("Supertime vale: ",SuperTime)} else {SuperTime=0; SuperSpeed=0;}
@@ -315,11 +321,12 @@ function update(deltaTime, currentTime) {
     //PREPARO IL PROSSIMO OSTACOLO
     nextObj.tipo = chooseOstacolo();
     datiOstacolo(currentTime);
+
   }
 
   //UPDATE OSTACOLI
   ostacoli.forEach(ostacolo => {
-      ostacolo.update(deltaTime)
+      ostacolo.update(deltaTime, globalSpeed, SuperSpeed, compFactor)
   });
   const prima = ostacoli.length;
   //ELIMINO OSTACOLI FUORI DAL CANVAS
