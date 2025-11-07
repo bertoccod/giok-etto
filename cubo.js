@@ -14,6 +14,7 @@ export function cuboClass(x, y, w, h, speed, tipo, pattern, textureMap, firstPla
         const dt = deltaTime / 1000;
         const effectiveSpeed = (globalSpeed + superSpeed) * compFactor;
         this.x -= effectiveSpeed * dt;
+        console.log("globalSpeed:", globalSpeed, "effectiveSpeed:", effectiveSpeed.toFixed(2));
     },
 
     draw(ctx) {

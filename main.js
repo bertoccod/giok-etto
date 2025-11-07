@@ -134,7 +134,7 @@ export function start(){
     console.log("LIVELLO ",level);
     numeroOstacoliLivello=20+level;
     //numeroOstacoliLivello=3;
-    globalSpeed=200+Number(level)*5;
+    globalSpeed=250+Number(level)*5;
     console.log("Ostacoli: ",numeroOstacoliLivello," - Global Speed: ",globalSpeed);
     counterOstacoli=0;
     firstObs=true;
@@ -255,7 +255,7 @@ function gameLoop(currentTime) {
   
 
   lastTime = currentTime;
-  console.log("rawDelta:", rawDelta.toFixed(2), "deltaTime:", deltaTime.toFixed(2), "compFactor:", compFactor.toFixed(2));
+  //console.log("rawDelta:", rawDelta.toFixed(2), "deltaTime:", deltaTime.toFixed(2), "compFactor:", compFactor.toFixed(2));
 
 
   if (SuperTime>0){SuperTime-=deltaTime;console.log("Supertime vale: ",SuperTime)} else {SuperTime=0; SuperSpeed=0;}

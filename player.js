@@ -15,7 +15,7 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
     height: h,
     velocityY: 0,
     velocityX: 0,
-    gravity: 1800,
+    gravity: 1600,
     jumpStrength: jS,
     speed: speed,
     grounded: false,
@@ -28,8 +28,9 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
       const adjustedGravity = this.gravity * compFactor;
       const adjustedSpeed = this.speed * compFactor;
       this.velocityY += adjustedGravity * dt; // ✅ gravità scalata
-      this.y += this.velocityY * dt;       // ✅ movimento scalatoù
-
+      this.y += this.velocityY * dt;       // ✅ movimento scalato
+      this.grounded=false;//DA DEBUGGARE
+      console.log("velocityY: ",this.velocityY.toFixed(2), " y: ",this.y.toFixed());
       //CHECK LANDING SU OGGETTO      
       const pl = this.getBounds();
       for (let ostacolo of ostacoli){
@@ -51,12 +52,20 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
       }
 
       // Collisione con il terreno
+      /* funzionante
       if (this.y + this.height >= canvas.height-base-10) {
         this.y = canvas.height - this.height-base;
         this.velocityY = 0;
         this.grounded = true;
         this.doubleJump=0;
-      }
+      }*/
+     if (this.velocityY > 0 && this.y + this.height >= canvas.height - base - 10) {
+  this.y = canvas.height - this.height - base;
+  this.velocityY = 0;
+  this.grounded = true;
+  this.doubleJump = 0;
+}
+
 
       if (keys.right) {
         this.velocityX = adjustedSpeed;
