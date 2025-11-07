@@ -47,6 +47,7 @@ let patternWidth=0; //LUNGHEZZA DEI PATTERN
 let globalSpeed=250; //VELOCITA' DI GIOCO
 let SuperSpeed=0; //FUNZIONE PER FASTFORWARD
 let SuperTime=0; //TEMPO IN FASTFORWARD
+let compFactor=0;
 
 //GESTIONE PUNTI
 let punti=Number(localStorage.getItem("punti"));
@@ -122,7 +123,7 @@ export function start(){
     ostacoli = []; //PULIAMO GLI OSTACOLI
     SuperSpeed=0; //RESETTO FUNZIONE PER FASTFORWARD
     SuperTime=0; //RESETTO TEMPO IN FASTFORWARD
-    player = playerClass(100,canvas.height-30-base.height,50,50,-850, 350,0,skin); //CREIAMO IL PLAYER
+    player = playerClass(100,canvas.height-30-base.height,50,50,-650, 250,0,skin); //CREIAMO IL PLAYER
     base.draw(ctx); //DISEGNAMO LA BASE
     document.getElementById("message").style.visibility = "hidden"; //NASCONDIAMO IL MESSAGE SPAN
     //SCELTA DEL LIVELLO
@@ -133,7 +134,7 @@ export function start(){
     console.log("LIVELLO ",level);
     numeroOstacoliLivello=20+level;
     //numeroOstacoliLivello=3;
-    globalSpeed=180+Number(level)*3;
+    globalSpeed=200+Number(level)*5;
     console.log("Ostacoli: ",numeroOstacoliLivello," - Global Speed: ",globalSpeed);
     counterOstacoli=0;
     firstObs=true;
@@ -186,7 +187,11 @@ canvas.addEventListener("touchstart", e => {
 }, { passive: false });
 
 function jump() {
-  if (!player || !gameRunning) {return;}
+  if (!player || !gameRunning) return;
+  console.log("Jump called. grounded:", player.grounded, "doubleJump:", player.doubleJump);
+
+  // Applica la scalatura del salto
+  const adjustedJumpStrength = player.jumpStrength * compFactor;
 
   if (player.grounded) {
     player.velocityY = player.jumpStrength;
@@ -197,6 +202,7 @@ function jump() {
     player.doubleJump = 2;
   }
 }
+
 
 
 const keys = {
@@ -239,11 +245,10 @@ function gameLoop(currentTime) {
   if (!lastTime){
       lastTime = currentTime; //SE NON ESISTE UN TEMPO PASSATO IMPOSTALO CON QUESTO
   }
-  const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
-  //SECONDA VERSIONE COMMENTATA:
-  //const rawDelta = currentTime - lastTime;
-  //const deltaTime = Math.min(Math.max(rawDelta, 16.67), 33.33); // tra 16.67 e 33.33 ms
-
+  //const deltaTime = currentTime - lastTime; //DALL'ULTIMO REFRESH è PASSATO CURRENT-PASSATO
+  const rawDelta = currentTime - lastTime;
+  const deltaTime = Math.min(Math.max(rawDelta, 16.67), 33.33); // tra 16.67 e 33.33 ms
+  compFactor = (rawDelta < 16.67 && deltaTime >= 16.67) ? 0.5 : 1;
   lastTime = currentTime;
 
 
@@ -332,7 +337,7 @@ function update(deltaTime, currentTime) {
   //UPDATE PLAYER
   player.grounded=false;
   const baseHeight = base.height;
-  player.update(canvas, deltaTime, baseHeight, keys, ostacoli);    
+  player.update(canvas, deltaTime, baseHeight, keys, ostacoli, compFactor);    
 }
 
 function draw(deltaTime){

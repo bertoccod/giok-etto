@@ -15,17 +15,21 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
     height: h,
     velocityY: 0,
     velocityX: 0,
-    gravity: 1800,
+    gravity: 1600,
     jumpStrength: jS,
     speed: speed,
     grounded: false,
     starterX: x,
     doubleJump: 0,
 
-    update(canvas, deltaTime, base, keys,ostacoli) {
+    update(canvas, deltaTime, base, keys,ostacoli, compFactor=1)
+    {
       const dt = deltaTime / 1000; // converti in secondi
-      this.velocityY += this.gravity * dt; // ✅ gravità scalata
-      this.y += this.velocityY * dt;       // ✅ movimento scalato
+      const adjustedGravity = this.gravity * compFactor;
+      const adjustedSpeed = this.speed * compFactor;
+      this.velocityY += adjustedGravity * dt; // ✅ gravità scalata
+      this.y += this.velocityY * dt;       // ✅ movimento scalatoù
+
       //CHECK LANDING SU OGGETTO      
       const pl = this.getBounds();
       for (let ostacolo of ostacoli){
@@ -55,16 +59,19 @@ export function playerClass(x, y, w, h, jS, speed, doubleJump,skin) {
       }
 
       if (keys.right) {
-        this.velocityX = this.speed;
+        this.velocityX = adjustedSpeed;
       } else if (keys.left) {
-        this.velocityX = -this.speed;
+        this.velocityX = -adjustedSpeed;
       } else {
         this.velocityX = 0;
       }
-      let potentialX = this.x + this.velocityX * dt;
+
+      const potentialX = this.x + this.velocityX * dt;
       const limitRight = this.starterX + 150;
       const limitLeft = this.starterX - 90;
+
       this.x = Math.max(limitLeft, Math.min(limitRight, potentialX));
+
       if (this.x === limitRight && keys.right) {
         this.velocityX = 0;
       }
