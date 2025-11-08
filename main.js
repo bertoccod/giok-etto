@@ -83,6 +83,9 @@ let nextSpawnTime=0;
 const canvas = document.getElementById("gameCanvas");
 canvas.width = 800;
 canvas.height = 400;
+console.log("devicePixelRatio:", window.devicePixelRatio);
+console.log("canvas.width:", canvas.width, "canvas.clientHeight:", canvas.clientHeight);
+
 
 //CREAZIONE CONTEST
 const ctx = canvas.getContext("2d");
