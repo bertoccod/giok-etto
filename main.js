@@ -83,8 +83,8 @@ let nextSpawnTime=0;
 const canvas = document.getElementById("gameCanvas");
 canvas.width = 800;
 canvas.height = 400;
-console.log("devicePixelRatio:", window.devicePixelRatio);
-console.log("canvas.width:", canvas.width, "canvas.clientHeight:", canvas.clientHeight);
+const scaleFactor = window.devicePixelRatio;
+
 
 
 //CREAZIONE CONTEST
@@ -192,16 +192,14 @@ canvas.addEventListener("touchstart", e => {
 function jump() {
   if (!player || !gameRunning) return;
   console.log("Jump called. grounded:", player.grounded, "doubleJump:", player.doubleJump);
-
-  // Applica la scalatura del salto
-  const adjustedJumpStrength = player.jumpStrength * compFactor;
+  const visualJumpStrength = player.jumpStrength / scaleFactor;
 
   if (player.grounded) {
-    player.velocityY = player.jumpStrength;
+    player.velocityY = visualJumpStrength;
     console.log("SALTO! VY:", player.velocityY, "Y:", player.y);
     player.doubleJump = 1;
   } else if (player.doubleJump === 1) {
-    player.velocityY = player.jumpStrength;
+    player.velocityY = visualJumpStrength;
     player.doubleJump = 2;
   }
 }
